@@ -18,9 +18,9 @@ module.exports = {
             // 建立连接，向表中插入值
             connection.query(liveSqlMapping.updateLiveStatus,
                 [
-                    param.queryStatus,
-                    param.desitinyStatus,
+                    param.destinyStatus,
                     param.streamCode,
+                    param.queryStatus,
                 ], function (err, result) {
                     if (err) {
                         console.error(myDate.toLocaleString() + "---" + err);
