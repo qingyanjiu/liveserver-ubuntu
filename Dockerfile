@@ -4,6 +4,18 @@ RUN yum install -y wget git gcc pcre-devel openssl openssl-devel libxslt-devel
 
 WORKDIR /
 
+RUN wget https://nodejs.org/dist/v4.6.0/node-v4.6.0-linux-x64.tar.xz
+
+RUN tag -xvf node-v4.6.0-linux-x64.tar.xz
+
+RUN ln -s node-v4.6.0-linux-x64/bin/node /usr/local/bin/node
+
+RUN ln -s node-v4.6.0-linux-x64/bin/npm /usr/local/bin/npm
+
+RUN npm -v
+
+RUN node -v
+
 RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
 
 RUN xz -d ffmpeg-release-64bit-static.tar.xz
