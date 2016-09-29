@@ -22,16 +22,8 @@ module.exports = {
                 callback(err, {});
             }
             if (result) {
-                LiveDao.addLive(param, function (er, res) {
-                    if (er) {
-                        console.error("LiveBusiness--onpublish--updateLiveStatus--error");
-                        callback(er, {});
-                    }
-                    if(res) {
-                        ret = {"result": param.streamcode};
-                        callback(err, ret);
-                    }
-                });
+                ret = {"result": param.streamcode};
+                callback(err, result);
             }
         });
     },
@@ -49,16 +41,8 @@ module.exports = {
                 callback(err, {});
             }
             if (result) {
-                LiveDao.addLive(param, function (er, res) {
-                    if (er) {
-                        console.error("LiveBusiness--onpublish--updateLiveStatus--error");
-                        callback(er, {});
-                    }
-                    if(res) {
-                        ret = {"result": param.streamcode};
-                        callback(err, ret);
-                    }
-                });
+                ret = {"result": param.streamcode};
+                callback(err, result);
             }
         });
     },

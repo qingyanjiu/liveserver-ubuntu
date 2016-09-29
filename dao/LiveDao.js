@@ -16,7 +16,7 @@ module.exports = {
                 return;
             }
             // 建立连接，向表中插入值
-            connection.query(liveSqlMapping.end,
+            connection.query(liveSqlMapping.updateLiveStatus,
                 [
                     param.queryStatus,
                     param.desitinyStatus,

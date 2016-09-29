@@ -52,4 +52,6 @@ EXPOSE 1935
 
 WORKDIR /root/web
 
+RUN chmod +x start.sh
+
 CMD ./start.sh
