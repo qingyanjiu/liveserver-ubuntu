@@ -4,17 +4,19 @@ RUN yum install -y wget git gcc pcre-devel openssl openssl-devel libxslt-devel
 
 WORKDIR /
 
-RUN wget https://nodejs.org/dist/v4.6.0/node-v4.6.0-linux-x64.tar.xz
+RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
 
-RUN tag -xvf node-v4.6.0-linux-x64.tar.xz
+RUN yum install -y nodejs
 
-WORKDIR /root/live-rtmp-nginx-in-docker
+COPY . /root/web
 
-RUN /root/node-v4.6.0-linux-x64/bin/npm install
+WORKDIR /root/web
 
-RUN /root/node-v4.6.0-linux-x64/bin/npm install -g supervisor
+RUN npm install
 
-RUN /root/node-v4.6.0-linux-x64/bin/supervisor bin/www
+RUN npm install -g supervisor
+
+WORKDIR /
 
 RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
 
