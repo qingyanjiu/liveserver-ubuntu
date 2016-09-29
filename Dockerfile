@@ -16,6 +16,8 @@ RUN npm install
 
 RUN npm install -g supervisor
 
+RUN echo -n "108.61.182.153" > conf/DBIp
+
 WORKDIR /
 
 RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
@@ -47,5 +49,7 @@ RUN chmod 777 /usr/local/nginx/html
 EXPOSE 80
 
 EXPOSE 1935
+
+WORKDIR /root/web
 
 CMD ./start.sh

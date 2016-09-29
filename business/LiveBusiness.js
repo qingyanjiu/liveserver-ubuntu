@@ -10,25 +10,21 @@ var myDate = new Date();
 var dateTime = myDate.pattern("yyyy-MM-dd HH:mm:ss");
 
 module.exports = {
-    //开启直播
-    startLive: function (param, callback) {
-        //先将之前的直播都置为无效
-        param.status = constants.LIVE_STATUS_ENDED;
-        LiveDao.deleteLive(param, function (err, result) {
-            var ret = {};
-            param.id = guid.create();
-            param.status = constants.LIVE_STATUS_STARTED;
-            param.start_time = dateTime;
-            param.streamcode = guid.create();
-
+    //进入直播状态
+    onpublish: function (param, callback) {
+        //要匹配的直播间状态(开启中但未直播-0)
+        param.queryStatus = constants.LIVE_STATUS_STARTED;
+        //需要改变的目标状态(正在直播-9)
+        param.destinyStatus = constants.LIVE_STATUS_LIVING;
+        LiveDao.updateLiveStatus(param, function (err, result) {
             if (err) {
-                console.error("LiveBusiness--startLive--deleteLive--error");
+                console.error("LiveBusiness--startLive--onpublish--error");
                 callback(err, {});
             }
             if (result) {
                 LiveDao.addLive(param, function (er, res) {
                     if (er) {
-                        console.error("LiveBusiness--startLive--addLive--error");
+                        console.error("LiveBusiness--onpublish--updateLiveStatus--error");
                         callback(er, {});
                     }
                     if(res) {
@@ -40,89 +36,31 @@ module.exports = {
         });
     },
 
-    //关闭直播
-    endLive: function (param, callback) {
-        param.status = constants.LIVE_STATUS_ENDED;
-        param.end_time = dateTime;
-        param.current_status = constants.LIVE_STATUS_STARTED;
-        //先将之前的直播都置为无效
-        LiveDao.endLive(param, function (err, result) {
-            var ret = {};
+    //进入停播状态
+    endpublish: function (param, callback) {
+        //需要匹配的目标状态(正在直播-9)
+        param.queryStatus = constants.LIVE_STATUS_LIVING;
+        //要改变的直播间状态(开启中但未直播-0)
+        param.destinyStatus = constants.LIVE_STATUS_STARTED;
+        
+        LiveDao.updateLiveStatus(param, function (err, result) {
             if (err) {
-                console.error("LiveBusiness--endlive--endLive--error");
+                console.error("LiveBusiness--startLive--onpublish--error");
                 callback(err, {});
             }
             if (result) {
-                ret = {"result": "success"};
-                callback(err, ret);
+                LiveDao.addLive(param, function (er, res) {
+                    if (er) {
+                        console.error("LiveBusiness--onpublish--updateLiveStatus--error");
+                        callback(er, {});
+                    }
+                    if(res) {
+                        ret = {"result": param.streamcode};
+                        callback(err, ret);
+                    }
+                });
             }
         });
     },
-
-    //查看直播列表
-    queryAllLives: function (param, callback) {
-        //查询所有有效的直播
-        param.status = constants.LIVE_STATUS_STARTED;
-        LiveDao.getAllLives(param, function (err, result) {
-            var ret = {};
-            if (err) {
-                console.error("LiveBusiness--queryAllLives--getAllLives--error");
-                callback(err, {});
-            }
-            if (result) {
-                callback(err, result);
-            }
-        });
-    },
-
-
-    //查看直播历史
-    queryLiveHistory: function (param, callback) {
-        //查询历史直播
-        param.status = constants.LIVE_STATUS_STARTED;
-        LiveDao.getLiveHistory(param, function (err, result) {
-            var ret = {};
-            if (err) {
-                console.error("LiveBusiness--queryAllLives--getLiveHistory--error");
-                callback(err, {});
-            }
-            if (result) {
-                callback(err, result);
-            }
-        });
-    },
-
-
-    //查看我正在进行的直播
-    queryMyCurrentLive: function (param, callback) {
-        param.status = constants.LIVE_STATUS_STARTED;
-        LiveDao.getMyCurrentLive(param, function (err, result) {
-            if (err) {
-                console.error("LiveBusiness--queryMyCurrentLive--getMyCurrentLive--error");
-                callback(err, {});
-            }
-            if (result) {
-                callback(err, result);
-            }
-        });
-    },
-
-
-    //获取某个用户的直播信息
-    getUserLive: function (param, callback) {
-        param.status = constants.LIVE_STATUS_STARTED;
-        LiveDao.getLiveFromUsername(param, function (err, result) {
-            if (err) {
-                console.error("LiveBusiness--getUserLive--getUserLive--error");
-                callback(err, {});
-            }
-            if (result) {
-                callback(err, result);
-            }
-        });
-    },
-
-
-
 
 };
