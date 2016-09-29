@@ -48,4 +48,4 @@ EXPOSE 80
 
 EXPOSE 1935
 
-CMD /usr/local/nginx/sbin/nginx -c /nginx-1.2.4/conf/nginx.conf
+CMD ./start.sh
