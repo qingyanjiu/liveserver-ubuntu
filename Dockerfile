@@ -8,13 +8,13 @@ RUN wget https://nodejs.org/dist/v4.6.0/node-v4.6.0-linux-x64.tar.xz
 
 RUN tag -xvf node-v4.6.0-linux-x64.tar.xz
 
-RUN ln -s node-v4.6.0-linux-x64/bin/node /usr/local/bin/node
+WORKDIR /root/live-rtmp-nginx-in-docker
 
-RUN ln -s node-v4.6.0-linux-x64/bin/npm /usr/local/bin/npm
+RUN /root/node-v4.6.0-linux-x64/bin/npm install
 
-RUN npm -v
+RUN /root/node-v4.6.0-linux-x64/bin/npm install -g supervisor
 
-RUN node -v
+RUN /root/node-v4.6.0-linux-x64/bin/supervisor bin/www
 
 RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
 
