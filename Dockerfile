@@ -46,7 +46,7 @@ COPY nclients.xsl /usr/local/nginx/html/
 
 RUN chmod 777 /usr/local/nginx/html 
 
-EXPOSE 80
+EXPOSE 8099
 
 EXPOSE 1935
 
