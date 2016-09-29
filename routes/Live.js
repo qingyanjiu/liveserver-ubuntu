@@ -9,7 +9,7 @@ var constants = require('../services/constants');
 
 
 //开播
-router.post('/onpublish', function (req, res, next) {
+router.get('/onpublish', function (req, res, next) {
     var streamCode = req.query.name;
     var param = {};
     param.streamCode = streamCode;
@@ -22,17 +22,18 @@ router.post('/onpublish', function (req, res, next) {
         }
         if (data) {
             if (data.result === "success")
-                res.json({result: 'success'});
+                res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
+            res.end();
         }
     });
 });
 
 //停播
-router.post('/endpublish', function (req, res, next) {
+router.get('/endpublish', function (req, res, next) {
     var streamCode = req.query.name;
     var param = {};
     param.streamCode = streamCode;
-    liveBusiness.onpublish(param, (err, data)=> {
+    liveBusiness.endpublish(param, (err, data)=> {
         if (err) {
             console.error("LiveRouter--post--end--error");
             console.error(err);
@@ -41,7 +42,8 @@ router.post('/endpublish', function (req, res, next) {
         }
         if (data) {
             if (data.result === "success")
-                res.json({result: 'success'});
+                res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
+            res.end();
         }
     });
 });

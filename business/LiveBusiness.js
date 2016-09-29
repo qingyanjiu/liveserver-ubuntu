@@ -22,7 +22,7 @@ module.exports = {
                 callback(err, {});
             }
             if (result) {
-                ret = {"result": param.streamcode};
+                result = {"result": param.streamcode};
                 callback(err, result);
             }
         });
@@ -41,7 +41,7 @@ module.exports = {
                 callback(err, {});
             }
             if (result) {
-                ret = {"result": param.streamcode};
+                result = {"result": param.streamcode};
                 callback(err, result);
             }
         });
