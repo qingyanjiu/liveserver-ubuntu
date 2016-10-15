@@ -20,11 +20,11 @@ RUN echo -n "108.61.182.153" > conf/DBIp
 
 WORKDIR /
 
-RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
+RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz -O ffmpeg.tar.xz
 
-RUN xz -d ffmpeg-release-64bit-static.tar.xz
+RUN xz -d ffmpeg.tar.xz
 
-RUN tar xvf ffmpeg-release-64bit-static.tar
+RUN tar xvf ffmpeg.tar
 
 RUN git clone git://github.com/arut/nginx-rtmp-module.git
 
