@@ -24,7 +24,9 @@ RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.t
 
 RUN xz -d ffmpeg.tar.xz
 
-RUN tar xvf ffmpeg.tar
+RUN mkdir ffmpeg
+
+RUN tar xvf ffmpeg.tar -C ffmpeg --strip-components 1
 
 RUN git clone git://github.com/arut/nginx-rtmp-module.git
 
