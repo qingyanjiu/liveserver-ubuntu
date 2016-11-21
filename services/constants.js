@@ -2,7 +2,7 @@ var rf = require("fs");
 var dbip = rf.readFileSync("conf/DBIp","utf-8");
 
 var constants = {
-    DB_ALIA: dbip,
+    DB_ALIA: dbip.trim(),
 
     LIVE_STATUS_STARTED: "0",
     LIVE_STATUS_ENDED: "1",
