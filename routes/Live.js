@@ -56,7 +56,7 @@ router.get('/endrecord', function (req, res, next) {
     var co = require('co');
     var OSS = require('ali-oss')
     var client = new OSS({
-      region: 'oss-cn-shanghai-internal',
+      region: 'oss-cn-shanghai',
       accessKeyId: 'QkCwVzn2G3St9HDo',
       accessKeySecret: 'hsM9Sh3bTNId6ZCbea02FFXHMHygYN',
       bucket: 'mokulive'
