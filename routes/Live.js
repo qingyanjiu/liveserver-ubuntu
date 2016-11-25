@@ -51,7 +51,7 @@ router.get('/endpublish', function (req, res, next) {
 
 //停止录制,上传录制的文件到oss
 router.get('/endrecord', function (req, res, next) {
-    var streamCode = req.query.recorder;
+    var streamCode = req.query.name;
     var path =  req.query.path
     var co = require('co');
     var OSS = require('ali-oss')
@@ -62,7 +62,7 @@ router.get('/endrecord', function (req, res, next) {
       bucket: 'mokulive'
     });
     co(function* () {
-      var result = yield client.put('videos', path);
+      var result = yield client.put('/videos/'+streamCode, path);
       console.log(result);
     }).catch(function (err) {
       console.log(err);

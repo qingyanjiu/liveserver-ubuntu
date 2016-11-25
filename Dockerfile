@@ -2,7 +2,7 @@ FROM ubuntu
 
 RUN apt-get update -y
 
-RUN apt-get install -y curl unzip wget git build-essential libpcre3 libpcre3-dev openssl libssl-dev ruby zlib1g-dev libxslt-dev libxml2-dev yamdi
+RUN apt-get install -y vim curl unzip wget git build-essential libpcre3 libpcre3-dev openssl libssl-dev ruby zlib1g-dev libxslt-dev libxml2-dev yamdi
 
 WORKDIR /
 
