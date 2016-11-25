@@ -1,7 +1,7 @@
 'use strict';
 
 var httpReq = require('../services/HttpRequests');
-var Date = require('./MyDate');
+var Date = require('../services/MyDate');
 
 var express = require('express');
 var router = express.Router();
