@@ -67,7 +67,7 @@ router.get('/endrecord', function (req, res, next) {
 
     //给录制的视频加关键帧，保存在record目录
     var cmdStr = "yamdi -i " + path +
-        " -o " + path.substring(0, path.lastIndexOf("/")-1) +
+        " -o " + path.substring(0, path.lastIndexOf("/")+1) +
         "record_" + streamCode + ".flv";
 
     //截图用的视频不上传,不添加关键帧
@@ -85,7 +85,8 @@ router.get('/endrecord', function (req, res, next) {
                         bucket: 'mokulive'
                     });
                     co(function*() {
-                        var result = yield client.put('/videos/' + streamCode + "-" + date + ".flv", path.substring(0, path.lastIndexOf("/")-1) +
+                        var result = yield client.put('/videos/' + streamCode + "-" + date + ".flv",
+                            path.substring(0, path.lastIndexOf("/")+1) +
                             "record_" + streamCode + ".flv");
                         console.log(result);
                     }).catch(function (err) {
