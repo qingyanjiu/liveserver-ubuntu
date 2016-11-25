@@ -15,7 +15,7 @@ router.get('/onpublish', function (req, res, next) {
     var streamCode = req.query.name;
     var param = {};
     param.streamCode = streamCode;
-    liveBusiness.onpublish(param, (err, data) = > {
+    liveBusiness.onpublish(param, (err, data) => {
         if (err) {
             console.error("LiveRouter--post--end--error");
             console.error(err);
@@ -37,7 +37,7 @@ router.get('/endpublish', function (req, res, next) {
     var streamCode = req.query.name;
     var param = {};
     param.streamCode = streamCode;
-    liveBusiness.endpublish(param, (err, data) = > {
+    liveBusiness.endpublish(param, (err, data) => {
         if (err) {
             console.error("LiveRouter--post--end--error");
             console.error(err);
