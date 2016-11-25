@@ -70,29 +70,30 @@ router.get('/endrecord', function (req, res, next) {
         " -o " + path.substring(0, path.lastIndexOf("/")) +
         "record_" + streamCode + ".flv";
 
-    exec(cmdStr, function (err, stdout, stderr) {
-        if (err) {
-            console.log('添加关键帧出错' + stderr);
-        } else {
-            console.log('添加关键帧成功');
-            //添加完关键帧后，开始将添加关键帧后的视频上传到oss，截图用的视频不上传
-            if (recorder != "preview") {
-                var client = new OSS({
-                    region: 'oss-cn-shanghai',
-                    accessKeyId: 'QkCwVzn2G3St9HDo',
-                    accessKeySecret: 'hsM9Sh3bTNId6ZCbea02FFXHMHygYN',
-                    bucket: 'mokulive'
-                });
-                co(function*() {
-                    var result = yield client.put('/videos/' + streamCode + "-" + date + ".flv", path.substring(0, path.lastIndexOf("/")) +
-                        "record_" + streamCode + ".flv");
-                    console.log(result);
-                }).catch(function (err) {
-                    console.log(err);
-                });
-            }
-        }
-    });
+    //截图用的视频不上传,不添加关键帧
+    if (recorder != "preview") {
+        exec(cmdStr, function (err, stdout, stderr) {
+            if (err) {
+                console.log('添加关键帧出错' + stderr);
+            } else {
+                console.log('添加关键帧成功');
+                    //添加完关键帧后，开始将添加关键帧后的视频上传到oss
+                    var client = new OSS({
+                        region: 'oss-cn-shanghai',
+                        accessKeyId: 'QkCwVzn2G3St9HDo',
+                        accessKeySecret: 'hsM9Sh3bTNId6ZCbea02FFXHMHygYN',
+                        bucket: 'mokulive'
+                    });
+                    co(function*() {
+                        var result = yield client.put('/videos/' + streamCode + "-" + date + ".flv", path.substring(0, path.lastIndexOf("/")) +
+                            "record_" + streamCode + ".flv");
+                        console.log(result);
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                }
+        });
+    }
 
 
 });
