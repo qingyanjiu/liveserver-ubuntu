@@ -48,4 +48,26 @@ router.get('/endpublish', function (req, res, next) {
     });
 });
 
+
+//停止录制,上传录制的文件到oss
+router.get('/endrecord', function (req, res, next) {
+    var streamCode = req.query.recorder;
+    var path =  req.query.path
+    var co = require('co');
+    var OSS = require('ali-oss')
+    var client = new OSS({
+      region: 'oss-cn-shanghai-internal',
+      accessKeyId: 'QkCwVzn2G3St9HDo',
+      accessKeySecret: 'hsM9Sh3bTNId6ZCbea02FFXHMHygYN',
+      bucket: 'mokulive'
+    });
+    co(function* () {
+      var result = yield client.put('videos', path);
+      console.log(result);
+    }).catch(function (err) {
+      console.log(err);
+    });
+});
+
+
 module.exports = router;
