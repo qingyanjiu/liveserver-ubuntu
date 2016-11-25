@@ -62,7 +62,7 @@ router.get('/endrecord', function (req, res, next) {
       bucket: 'mokulive'
     });
     co(function* () {
-      var result = yield client.put('/videos/'+streamCode, path);
+      var result = yield client.put('/videos/'+streamCode, '/usr/local/nginx/html/record/record_'+streamCode);
       console.log(result);
     }).catch(function (err) {
       console.log(err);

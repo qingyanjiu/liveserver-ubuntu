@@ -1,6 +1,6 @@
 FROM ubuntu
 
-RUN apt-get update -y
+RUN apt-get update -y --fix-missing
 
 RUN apt-get install -y vim curl unzip wget git build-essential libpcre3 libpcre3-dev openssl libssl-dev ruby zlib1g-dev libxslt-dev libxml2-dev yamdi
 
@@ -21,6 +21,8 @@ COPY . /root/web
 WORKDIR /root/web
 
 RUN npm install
+
+RUN npm install ali-oss co
 
 RUN npm install -g supervisor
 
