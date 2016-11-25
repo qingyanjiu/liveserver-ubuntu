@@ -1,6 +1,7 @@
 'use strict';
 
 var httpReq = require('../services/HttpRequests');
+var Date = require('./MyDate');
 
 var express = require('express');
 var router = express.Router();
@@ -51,6 +52,8 @@ router.get('/endpublish', function (req, res, next) {
 
 //停止录制,上传录制的文件到oss
 router.get('/endrecord', function (req, res, next) {
+    var myDate = new Date();
+    var date = myDate.pattern("yyyy-MM-dd-HH:mm:ss");
     var streamCode = req.query.name;
     var path =  req.query.path
     var co = require('co');
@@ -62,7 +65,7 @@ router.get('/endrecord', function (req, res, next) {
       bucket: 'mokulive'
     });
     co(function* () {
-      var result = yield client.put('/videos/'+streamCode, path);
+      var result = yield client.put('/videos/'+date+".flv", path);
       console.log(result);
     }).catch(function (err) {
       console.log(err);
