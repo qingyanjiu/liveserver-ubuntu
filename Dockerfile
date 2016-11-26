@@ -1,5 +1,8 @@
 FROM ubuntu
 
+#修改时区为上海
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 RUN apt-get update -y --fix-missing
 
 RUN apt-get install -y vim curl unzip wget git build-essential libpcre3 libpcre3-dev openssl libssl-dev ruby zlib1g-dev libxslt-dev libxml2-dev yamdi
