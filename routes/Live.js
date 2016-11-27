@@ -84,14 +84,28 @@ router.get('/endrecord', function (req, res, next) {
                         accessKeySecret: 'hsM9Sh3bTNId6ZCbea02FFXHMHygYN',
                         bucket: 'mokulive'
                     });
-                    co(function*() {
-                        var result = yield client.put('/videos/' + streamCode + "-" + date + ".flv",
+
+                    co(function* () {
+                        var result = yield client.multipartUpload('/videos/' + streamCode + "-" + date + ".flv",
                             path.substring(0, path.lastIndexOf("/")+1) +
-                            "record_" + streamCode + ".flv");
+                            "record_" + streamCode + ".flv", {
+                                progress: function* (p) {
+                                    console.log('Progress: ' + p);
+                                }
+                            });
                         console.log(result);
                     }).catch(function (err) {
                         console.log(err);
                     });
+
+                    // co(function*() {
+                    //     var result = yield client.put('/videos/' + streamCode + "-" + date + ".flv",
+                    //         path.substring(0, path.lastIndexOf("/")+1) +
+                    //         "record_" + streamCode + ".flv");
+                    //     console.log(result);
+                    // }).catch(function (err) {
+                    //     console.log(err);
+                    // });
                 }
         });
     }
