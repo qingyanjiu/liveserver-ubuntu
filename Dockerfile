@@ -1,5 +1,6 @@
 FROM ubuntu
 
+ADD Shanghai /etc/localtime
 
 RUN apt-get update -y --fix-missing
 
@@ -17,11 +18,15 @@ RUN ln -s /opt/node-v4.4.4-linux-x64/bin/node /usr/bin/node
 
 RUN ln -s /opt/node-v4.4.4-linux-x64/bin/npm /usr/bin/npm
 
-ADD ttyjs-config.json /
-ADD zshrc /root/.zshrc
-
 RUN apt-get install -y npm python g++ make git irssi zsh 
+
 RUN npm install -g tty.js 
+
+RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+
+ADD ttyjs-config.json /
+
+ADD zshrc /root/.zshrc
 
 COPY . /root/web
 
