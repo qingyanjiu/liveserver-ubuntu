@@ -1,7 +1,5 @@
 FROM ubuntu
 
-#修改时区为上海
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 RUN apt-get update -y --fix-missing
 
@@ -18,6 +16,12 @@ RUN mv node-v4.4.4-linux-x64 /opt/
 RUN ln -s /opt/node-v4.4.4-linux-x64/bin/node /usr/bin/node
 
 RUN ln -s /opt/node-v4.4.4-linux-x64/bin/npm /usr/bin/npm
+
+ADD ttyjs-config.json /
+ADD zshrc /root/.zshrc
+
+RUN apt-get install -y npm python g++ make git irssi zsh 
+RUN npm install -g tty.js 
 
 COPY . /root/web
 
@@ -81,6 +85,8 @@ RUN chmod 777 /usr/local/nginx/html/record
 EXPOSE 8099
 
 EXPOSE 1935
+
+EXPOSE 3001
 
 WORKDIR /root/web
 
