@@ -22,11 +22,15 @@ RUN apt-get install -y npm python g++ make git irssi zsh
 
 RUN npm install -g tty.js 
 
-RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-
 ADD ttyjs-config.json /
 
+# Install oh-my-zsh
+RUN git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
+        && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+
 ADD zshrc /root/.zshrc
+
+ENV SHELL /bin/zsh
 
 COPY . /root/web
 
