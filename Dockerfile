@@ -91,7 +91,7 @@ RUN mkdir /usr/local/nginx/html/record
 
 RUN chmod 777 /usr/local/nginx/html/record
 
-EXPOSE 8099
+EXPOSE 80
 
 EXPOSE 1935
 
