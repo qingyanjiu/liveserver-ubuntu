@@ -66,8 +66,8 @@ router.get('/endrecord', function (req, res, next) {
     var OSS = require('ali-oss')
 
     //给录制的视频加关键帧，保存在record目录
-    var cmdStr = "ffmpeg -i " + path +
-        " keyint=10 -y " + path.substring(0, path.lastIndexOf("/")+1) +
+    var cmdStr = "/ffmpeg/ffmpeg -i " + path +
+        " -g 18 -y " + path.substring(0, path.lastIndexOf("/")+1) +
         "record_" + streamCode + ".flv";
 
     //截图用的视频不上传,不添加关键帧
