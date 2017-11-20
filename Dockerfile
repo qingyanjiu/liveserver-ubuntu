@@ -1,28 +1,20 @@
-FROM ubuntu
+FROM alpine
 
 ADD Shanghai /etc/localtime
 
-RUN apt-get update -y --fix-missing
+#ADD repositories /etc/apk/repositories
+#RUN apk add --no-cache alpine-sdk
+RUN apk add --no-cache pcre pcre-dev openssl openssl-dev ruby zlib-dev libxslt-dev libxml2-dev
 
-RUN apt-get install -y vim curl unzip wget git build-essential libpcre3 libpcre3-dev openssl libssl-dev ruby zlib1g-dev libxslt-dev libxml2-dev yamdi
+RUN apk add --no-cache nodejs=6.10.3-r1 nodejs-npm=6.10.3-r1
 
-WORKDIR /
+RUN npm -v
 
-RUN wget http://cdn.npm.taobao.org/dist/node/latest-v4.x/node-v4.4.4-linux-x64.tar.gz
+RUN apk add --no-cache curl git unzip xz g++ gcc make irssi tar zsh wget
 
-RUN tar -xvf node-v4.4.4-linux-x64.tar.gz
+#RUN npm install -g tty.js 
 
-RUN mv node-v4.4.4-linux-x64 /opt/
-
-RUN ln -s /opt/node-v4.4.4-linux-x64/bin/node /usr/bin/node
-
-RUN ln -s /opt/node-v4.4.4-linux-x64/bin/npm /usr/bin/npm
-
-RUN apt-get install -y npm python g++ make git irssi zsh 
-
-RUN npm install -g tty.js 
-
-ADD ttyjs-config.json /
+#ADD ttyjs-config.json /
 
 # Install oh-my-zsh
 RUN git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
