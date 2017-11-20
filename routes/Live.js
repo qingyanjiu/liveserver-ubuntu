@@ -66,17 +66,17 @@ router.get('/endrecord', function (req, res, next) {
     var OSS = require('ali-oss')
 
     //给录制的视频加关键帧，保存在record目录
-//     var cmdStr = "yamdi -i " + path +
-//         " -o " + path.substring(0, path.lastIndexOf("/")+1) +
-//         "record_" + streamCode + ".flv";
+    var cmdStr = "ffmpeg -i " + path +
+        " -sameq -r 24 -y " + path.substring(0, path.lastIndexOf("/")+1) +
+        "record_" + streamCode + ".flv";
 
     //截图用的视频不上传,不添加关键帧
     if (recorder != "preview") {
-//         exec(cmdStr, function (err, stdout, stderr) {
-//             if (err) {
-//                 console.log('添加关键帧出错' + stderr);
-//             } else {
-//                 console.log('添加关键帧成功');
+        exec(cmdStr, function (err, stdout, stderr) {
+            if (err) {
+                console.log('添加关键帧出错' + stderr);
+            } else {
+                console.log('添加关键帧成功');
                     //添加完关键帧后，开始将添加关键帧后的视频上传到oss
                     var client = new OSS({
                         region: 'oss-cn-shanghai',
@@ -106,8 +106,8 @@ router.get('/endrecord', function (req, res, next) {
                     // }).catch(function (err) {
                     //     console.log(err);
                     // });
-//                 }
-//         });
+                }
+        });
     }
 
 
