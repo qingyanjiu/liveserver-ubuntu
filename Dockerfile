@@ -8,8 +8,6 @@ RUN apk add --no-cache pcre pcre-dev openssl openssl-dev ruby zlib-dev libxslt-d
 
 RUN apk add --no-cache nodejs=6.10.3-r1 nodejs-npm=6.10.3-r1
 
-RUN npm -v
-
 RUN apk add --no-cache curl git unzip xz g++ gcc make irssi tar zsh wget
 
 #RUN npm install -g tty.js 
@@ -34,7 +32,7 @@ RUN npm install ali-oss co
 
 RUN npm install -g supervisor
 
-RUN echo -n "ldwcnmlgb.pw" > conf/DBIp
+RUN echo -n "104.233.101.198" > conf/DBIp
 
 WORKDIR /
 
