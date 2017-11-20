@@ -67,7 +67,7 @@ router.get('/endrecord', function (req, res, next) {
 
     //给录制的视频加关键帧，保存在record目录
     var cmdStr = "ffmpeg -i " + path +
-        " -sameq -r 24 -y " + path.substring(0, path.lastIndexOf("/")+1) +
+        " keyint=10 -y " + path.substring(0, path.lastIndexOf("/")+1) +
         "record_" + streamCode + ".flv";
 
     //截图用的视频不上传,不添加关键帧
