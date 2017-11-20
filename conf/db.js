@@ -16,7 +16,7 @@ module.exports = {
         host: constants.DB_ALIA,
         user: 'root',
         password: '123',
-        database:'livestream',
+        database:'livedb',
         port: 3306,
         connectionLimit: 10,
         supportBigNumbers: true
