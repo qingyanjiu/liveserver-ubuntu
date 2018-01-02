@@ -6,7 +6,7 @@ ADD Shanghai /etc/localtime
 #RUN apk add --no-cache alpine-sdk
 RUN apk add --no-cache pcre pcre-dev openssl openssl-dev ruby zlib-dev libxslt-dev libxml2-dev
 
-RUN apk add --no-cache nodejs=6.10.3-r1 nodejs-npm=6.10.3-r1
+RUN apk add --no-cache nodejs nodejs-npm
 
 RUN apk add --no-cache curl git unzip xz g++ gcc make irssi tar zsh wget
 
@@ -32,7 +32,7 @@ RUN npm install ali-oss co
 
 RUN npm install -g supervisor
 
-RUN echo -n "104.233.101.198" > conf/DBIp
+RUN echo -n "139.162.102.65" > conf/DBIp
 
 WORKDIR /
 
@@ -54,15 +54,15 @@ RUN mkdir ffmpeg
 
 RUN tar xvf ffmpeg.tar -C ffmpeg --strip-components 1
 
-RUN git clone git://github.com/arut/nginx-rtmp-module.git
+RUN git clone https://github.com/winshining/nginx-http-flv-module.git 
 
-RUN wget http://nginx.org/download/nginx-1.9.0.tar.gz
+RUN wget http://nginx.org/download/nginx-1.13.6.tar.gz
 
-RUN tar xzf nginx-1.9.0.tar.gz
+RUN tar xzf nginx-1.13.6.tar.gz
 
-WORKDIR /nginx-1.9.0
+WORKDIR /nginx-1.13.6
 
-RUN ./configure --add-module=/nginx-rtmp-module --add-module=/ngx_cache_purge-master --add-module=/nginx_mod_h264_streaming-2.2.7 --with-http_xslt_module --with-http_stub_status_module --with-http_ssl_module --with-http_sub_module --with-http_gzip_static_module --with-http_flv_module
+RUN ./configure --add-module=/nginx-http-flv-module --add-module=/ngx_cache_purge-master --add-module=/nginx_mod_h264_streaming-2.2.7 --with-http_xslt_module --with-http_stub_status_module --with-http_ssl_module --with-http_sub_module --with-http_gzip_static_module --with-http_flv_module 
 
 #修改nginx安装目录下的objs下的Makefile 删除-Werror
 RUN sed -i "s/-Werror/ /g" objs/Makefile
@@ -71,7 +71,7 @@ RUN make
 
 RUN make install
 
-COPY nginx.conf /nginx-1.9.0/conf/nginx.conf
+COPY nginx.conf /nginx-1.13.6/conf/nginx.conf
 
 COPY nclients.xsl /usr/local/nginx/html/
 
