@@ -6,7 +6,7 @@ ADD Shanghai /etc/localtime
 #RUN apk add --no-cache alpine-sdk
 RUN apk add --no-cache pcre pcre-dev openssl openssl-dev ruby zlib-dev libxslt-dev libxml2-dev
 
-RUN apk add --no-cache nodejs=6.10.3-r1 nodejs-npm=6.10.3-r1
+RUN apk add --no-cache nodejs nodejs-npm
 
 RUN apk add --no-cache curl git unzip xz g++ gcc make irssi tar zsh wget
 
